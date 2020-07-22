@@ -4,10 +4,19 @@
 
 <script>
     export default {
-        name: "login"
+        name: "login",
+        data() {
+            return {
+                loginParam: {
+                    username: null,
+                    pwd: null,
+                    verifyCode: null
+                }
+            };
+        }
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>

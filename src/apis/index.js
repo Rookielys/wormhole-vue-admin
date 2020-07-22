@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import _ from 'lodash'
+import ViewUI from "view-design"
 
 const request = axios.create({
     timeout: 5000,
@@ -23,7 +24,11 @@ request.interceptors.response.use(response => {
 }, error => {
     // 调用catch之前的处理
     // 弹出框可以在这统一处理？
-    console.log(error);
+    console.error(error);
+    ViewUI.Message.error({
+        content: error.message,
+        closable: true
+    });
     return error.message;
 })
 // 响应数据转换-->拦截器-->自己的处理方法
@@ -51,7 +56,7 @@ allRequests.forEach(item => {
 
 Vue.prototype.$requestProxy = requestProxy;
 
-Vue.prototype.$requestProxy.login({lala: 'lala'}).then(r => {
+Vue.prototype.$requestProxy.login({lala: 'lal'}).then(r => {
     console.log(r)
 }).catch(error => {
     console.log(error)

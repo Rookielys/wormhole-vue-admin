@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 Vue.use(ViewUI);
-
 Vue.config.productionTip = false
 
 new Vue({
