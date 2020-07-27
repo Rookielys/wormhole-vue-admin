@@ -3,6 +3,8 @@ import router from "@/routes/index.js"
 //import store from "@/stores/index.js";
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
+import 'animate.css'
+import '@/assets/css/global.scss'
 import App from './App.vue'
 import '@/apis/index.js'
 if (process.env.NODE_ENV === 'development') {

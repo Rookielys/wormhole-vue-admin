@@ -1,0 +1,7 @@
+$global-height: 100%;
+html, body {
+  height: $global-height;
+  #app {
+    height: $global-height;
+  }
+}
