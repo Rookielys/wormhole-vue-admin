@@ -9,7 +9,7 @@ import App from './App.vue'
 import '@/apis/index.js'
 if (process.env.NODE_ENV === 'development') {
   // import语法不支持这样写
-  require('@/mock/index.js')
+  //require('@/mock/index.js')
 }
 
 Vue.use(ViewUI);

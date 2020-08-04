@@ -10,9 +10,16 @@ module.exports = {
     // 构建时不生成SourceMap
     productionSourceMap: false,
     devServer: {
-        // proxy: {
-        //
-        // }
+        proxy: {
+            "/sys/": {
+                // 跨域
+                changeOrigin: true,
+                target: 'http://localhost:9001',
+                pathRewrite: {
+                    '/sys': '/sys'
+                }
+            }
+        }
     },
     // 设置引用的路径别名
     /* 这里的设置不生效？ 什么原因？

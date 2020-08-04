@@ -16,7 +16,9 @@ _.forEach(moduleLoader.keys(), item => {
 });
 
 const router = new VueRouter({
-    routes
+    routes,
+    base: '/wormhole-admin/',
+    mode: "hash"
 });
 
 router.beforeEach((to, from, next) => {

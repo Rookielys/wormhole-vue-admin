@@ -5,21 +5,28 @@ import ViewUI from "view-design"
 
 const request = axios.create({
     timeout: 5000,
-    baseURL: '/wormhole-admin',
+    baseURL: '/sys',
     headers: {
         // 默认
         'Content-Type': 'application/json'
-    },
+    }
     // 在传递给 then/catch 前，允许修改响应数据
     // 在过滤器之前执行
+    /*
     transformResponse: [function (data) {
         // 对 data 进行任意转换处理
         return data;
-    }]
+    }]*/
 });
 
 request.interceptors.response.use(response => {
     // 调用then之前的处理
+    if (!response.data.status) {
+        ViewUI.Message.error({
+            content: response.data.message,
+            closable: true
+        });
+    }
     return response.data;
 }, error => {
     // 调用catch之前的处理
@@ -56,8 +63,10 @@ allRequests.forEach(item => {
 
 Vue.prototype.$requestProxy = requestProxy;
 
+// test
+/*
 Vue.prototype.$requestProxy.login({lala: 'lal'}).then(r => {
     console.log(r)
 }).catch(error => {
     console.log(error)
-});
+});*/

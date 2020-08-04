@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
 
-Mock.mock('/wormhole-admin/login', 'post', {
-    message: 'haha'
-});
+// Mock.mock('/wormhole-admin/login', 'post', {
+//     message: 'haha'
+// });
