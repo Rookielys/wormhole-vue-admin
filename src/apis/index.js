@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import _ from 'lodash'
 import ViewUI from "view-design"
+import store from "@/stores/index.js"
 
 const request = axios.create({
     timeout: 5000,
@@ -19,10 +20,22 @@ const request = axios.create({
     }]*/
 });
 
+request.interceptors.request.use(config => {
+    config.headers["Authorization"] = store.state.authc.token;
+    return config;
+}, error => {
+    return Promise.reject(error)
+});
+
 request.interceptors.response.use(response => {
     // 调用then之前的处理
     if (!response.data.status) {
         ViewUI.Message.error({
+            content: response.data.message,
+            closable: true
+        });
+    } else if (response.data.message) {
+        ViewUI.Message.success({
             content: response.data.message,
             closable: true
         });

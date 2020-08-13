@@ -15,7 +15,7 @@
             <div class="input-item">
                 <div class="verify-input">
                     <Input v-model="loginParam.verifyCode" clearable placeholder="验证码"
-                           prefix="ios-key-outline" size="large"/>
+                           prefix="ios-key-outline" size="large" @keyup.native.enter="clickLoginBtn"/>
                 </div>
                 <div class="verify-img">
                     <img :src="verificationCode" alt="加载失败"
@@ -25,19 +25,23 @@
             </div>
             <div class="input-item flex-container">
                 <Checkbox v-model="loginParam.rememberMe">记住我</Checkbox>
-                <a>找回密码</a>
+                <!--<a>找回密码</a>-->
             </div>
             <div class="input-item">
-                <Button type="primary" size="large" long @click="clickLoginBtn">登录</Button>
+                <Button type="primary" size="large" long @click="clickLoginBtn" :loading="loginLoading">登录</Button>
             </div>
             <div class="input-item" style="text-align: center; margin-bottom: 0;">
-                <Icon type="logo-github" size="36" style="cursor: pointer;"></Icon>
+                <Button icon="logo-github" to="https://github.com/Rookielys/wormhole-vue-admin" target="_blank"></Button>
             </div>
         </Card>
     </div>
 </template>
 
 <script>
+    import qs from 'qs'
+    import {mapMutations} from 'vuex'
+    import {SET_TOKEN} from '@/stores/modules/authc.js'
+
     export default {
         name: "login",
         data() {
@@ -48,26 +52,61 @@
                     verifyCode: null,
                     rememberMe: false
                 },
-                verificationCode: null
+                key: null,
+                verificationCode: null,
+                loginLoading: false
             };
         },
         created() {
             this.refreshVerificationCode();
         },
         methods: {
+            ...mapMutations('authc', {
+                'setToken': SET_TOKEN
+            }),
             refreshVerificationCode() {
                 this.$requestProxy.verificationCode().then(data => {
                     if (data.status) {
-                        this.verificationCode = data.data;
+                        this.verificationCode = data.data.text;
+                        this.key = data.data.key;
                     }
                 });
             },
             clickLoginBtn() {
-                this.$requestProxy.login(this.loginParam).then(data => {
-                    if (data.status) {
-                        console.log(data.message)
-                    }
-                });
+                let letgo = this.validateLogin();
+                if (letgo) {
+                    this.loginParam.key = this.key;
+                    this.loginLoading = true;
+                    this.$requestProxy.login(qs.stringify(this.loginParam), {
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                    }).then(data => {
+                        if (data.status) {
+                            //console.log(data.message);
+                            // 将token放入vuex
+                            this.setToken(data.data);
+                            this.$router.push({name: "home"});
+                        } else {
+                            this.refreshVerificationCode();
+                        }
+                    }).then(() => {
+                        this.loginLoading = false;
+                    });
+                }
+            },
+            validateLogin() {
+                if (!this.loginParam.username) {
+                    this.$Message.error("用户名不能为空")
+                    return false;
+                } else if (!this.loginParam.pwd) {
+                    this.$Message.error("密码不能为空")
+                    return false;
+                } else if (!this.loginParam.verifyCode) {
+                    this.$Message.error("验证码不能为空")
+                    return false;
+                }
+                return true;
             }
         }
     }
@@ -142,6 +181,18 @@
             .flex-container {
                 display: flex;
                 justify-content: space-between;
+            }
+        }
+        .ivu-btn {
+            border: none;
+            &:hover {
+                color: #515a6e;
+            }
+            &:focus {
+                box-shadow: none;
+            }
+            /deep/ i {
+                font-size: 2em;
             }
         }
     }

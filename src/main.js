@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import router from "@/routes/index.js"
-//import store from "@/stores/index.js";
+import store from "@/stores/index.js"
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
 import 'animate.css'
@@ -17,6 +17,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  //store,
+  store,
   render: h => h(App),
 }).$mount('#app')

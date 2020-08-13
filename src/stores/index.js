@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from 'lodash'
+import createPersistedState from 'vuex-persistedstate'
+import authc from "@/stores/modules/authc";
 
 Vue.use(Vuex)
 
@@ -17,6 +19,12 @@ _.forEach(moduleLoader.keys(), item => {
     modules[name] = moduleLoader(item).default;
 });
 
-const store = Vuex.Store({modules});
-
+const store = new Vuex.Store({
+    modules,
+    plugins: [createPersistedState({
+        storage: window.sessionStorage,
+        paths: ['authc']
+    })]
+});
+// console.log(store)
 export default store;
