@@ -1,8 +1,12 @@
 $global-height: 100%;
 html, body {
   height: $global-height;
+  padding: 0;
+  margin: 0;
 
   #app {
     height: $global-height;
+    padding: 0;
+    margin: 0;
   }
 }

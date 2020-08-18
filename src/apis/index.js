@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import _ from 'lodash'
-import ViewUI from "view-design"
+import {Message} from 'element-ui'
 import store from "@/stores/index.js"
 
 const request = axios.create({
@@ -30,14 +30,14 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(response => {
     // 调用then之前的处理
     if (!response.data.status) {
-        ViewUI.Message.error({
-            content: response.data.message,
-            closable: true
+        Message.error({
+            message: response.data.message,
+            showClose: true
         });
     } else if (response.data.message) {
-        ViewUI.Message.success({
-            content: response.data.message,
-            closable: true
+        Message.success({
+            message: response.data.message,
+            showClose: true
         });
     }
     return response.data;
@@ -45,9 +45,9 @@ request.interceptors.response.use(response => {
     // 调用catch之前的处理
     // 弹出框可以在这统一处理？
     console.error(error);
-    ViewUI.Message.error({
-        content: error.message,
-        closable: true
+    Message.error({
+        message: error.message,
+        showClose: true
     });
     return error.message;
 })

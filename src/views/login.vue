@@ -1,21 +1,21 @@
 <template>
     <div class="login-background">
-        <Card class="login-card animate__animated animate__zoomIn animate__faster" shadow>
+        <el-card class="login-card animate__animated animate__zoomIn animate__faster">
             <div class="login-header">
                 用户登录
             </div>
             <div class="input-item">
-                <Input v-model="loginParam.username" placeholder="请输入登录用户名"
-                       clearable size="large" prefix="ios-person-outline"/>
+                <el-input v-model="loginParam.username" placeholder="请输入用户名"
+                          clearable size="large" prefix-icon="el-icon-user"/>
             </div>
             <div class="input-item">
-                <Input v-model="loginParam.pwd" placeholder="请输入登录密码" type="password"
-                       clearable size="large" password prefix="ios-lock-outline"/>
+                <el-input v-model="loginParam.pwd" placeholder="请输入密码" type="password"
+                          clearable size="large" password prefix-icon="el-icon-lock"/>
             </div>
             <div class="input-item">
                 <div class="verify-input">
-                    <Input v-model="loginParam.verifyCode" clearable placeholder="验证码"
-                           prefix="ios-key-outline" size="large" @keyup.native.enter="clickLoginBtn"/>
+                    <el-input v-model="loginParam.verifyCode" clearable placeholder="验证码"
+                              prefix-icon="el-icon-key" size="large" @keyup.native.enter="clickLoginBtn"/>
                 </div>
                 <div class="verify-img">
                     <img :src="verificationCode" alt="加载失败"
@@ -24,16 +24,24 @@
                 </div>
             </div>
             <div class="input-item flex-container">
-                <Checkbox v-model="loginParam.rememberMe">记住我</Checkbox>
+                <el-checkbox v-model="loginParam.rememberMe">记住我</el-checkbox>
                 <!--<a>找回密码</a>-->
             </div>
             <div class="input-item">
-                <Button type="primary" size="large" long @click="clickLoginBtn" :loading="loginLoading">登录</Button>
+                <el-button type="primary" size="large" @click="clickLoginBtn" :loading="loginLoading"
+                           style="width: 100%;">登录
+                </el-button>
             </div>
             <div class="input-item" style="text-align: center; margin-bottom: 0;">
-                <Button icon="logo-github" to="https://github.com/Rookielys/wormhole-vue-admin" target="_blank"></Button>
+                <el-link :underline="false" href="https://github.com/Rookielys/wormhole-vue-admin" target="_blank">
+                    <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16"
+                         version="1.1" width="32" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </el-link>
             </div>
-        </Card>
+        </el-card>
     </div>
 </template>
 
@@ -97,13 +105,13 @@
             },
             validateLogin() {
                 if (!this.loginParam.username) {
-                    this.$Message.error("用户名不能为空")
+                    this.$message.error("用户名不能为空")
                     return false;
                 } else if (!this.loginParam.pwd) {
-                    this.$Message.error("密码不能为空")
+                    this.$message.error("密码不能为空")
                     return false;
                 } else if (!this.loginParam.verifyCode) {
-                    this.$Message.error("验证码不能为空")
+                    this.$message.error("验证码不能为空")
                     return false;
                 }
                 return true;
@@ -143,11 +151,12 @@
 
         .login-card {
             width: 380px;
-            height: 457px;
+            height: 440px;
             $padding-top: 25px;
+            border: 0;
 
-            /deep/ .ivu-card-body {
-                padding: $padding-top 30px;
+            /deep/ .el-card__body {
+                padding: 20px 30px;
             }
 
             .login-header {
@@ -164,7 +173,7 @@
                 .verify-input {
                     width: 200px;
                     display: inline-block;
-                    margin-right: 18px;
+                    margin-right: 20px;
                     vertical-align: top;
                 }
 
@@ -181,18 +190,6 @@
             .flex-container {
                 display: flex;
                 justify-content: space-between;
-            }
-        }
-        .ivu-btn {
-            border: none;
-            &:hover {
-                color: #515a6e;
-            }
-            &:focus {
-                box-shadow: none;
-            }
-            /deep/ i {
-                font-size: 2em;
             }
         }
     }
