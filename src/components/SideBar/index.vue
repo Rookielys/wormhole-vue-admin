@@ -1,15 +1,18 @@
 <template>
-    <div>
-        <el-menu mode="vertical"
-                 :unique-opened="true"
-                 :collapse="isCollapse"
-                 background-color="#545c64"
-                 text-color="#fff"
-                 active-text-color="#ffd04b">
-            <side-bar-item v-for="m of menuList"
-                           :key="m.id"
-                           :menu-obj="m"></side-bar-item>
-        </el-menu>
+    <div class="sidebar-container">
+        <el-scrollbar style="height: 100%;">
+            <el-menu mode="vertical"
+                     :unique-opened="true"
+                     :collapse="isCollapsed"
+                     background-color="#545c64"
+                     text-color="#fff"
+                     active-text-color="#ffd04b"
+                     class="el-menu-vertical-demo">
+                <side-bar-item v-for="m of menuList"
+                               :key="m.id"
+                               :menu-obj="m"></side-bar-item>
+            </el-menu>
+        </el-scrollbar>
     </div>
 </template>
 
@@ -26,7 +29,7 @@
                 type: Array,
                 required: true
             },
-            isCollapse: {
+            isCollapsed: {
                 type: Boolean,
                 default: false
             }
@@ -35,7 +38,21 @@
 </script>
 
 <style scoped lang="scss">
-    .el-menu {
-        border: none;
+    .sidebar-container {
+        height: calc(100% - 60px);
+
+        .el-menu {
+            border: none;
+        }
+
+        // 必须要加这个动画才能正常工作
+        .el-menu-vertical-demo:not(.el-menu--collapse) {
+            width: 240px;
+            //min-height: 400px;
+        }
+
+        /deep/ .el-scrollbar__wrap {
+            overflow-x: hidden;
+        }
     }
 </style>

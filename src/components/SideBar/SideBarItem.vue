@@ -1,9 +1,10 @@
 <template>
-    <div v-if="menuObj.visibility">
+    <fragment v-if="menuObj.visibility">
         <template v-if="menuObj.children && menuObj.children.length > 0">
-            <el-submenu :index="menuObj.id + '-sub'">
+            <el-submenu :index="menuObj.id">
                 <template slot="title">
-                    <i :class="menuObj.menuIcon"></i>
+<!--                    <i :class="menuObj.menuIcon"></i>-->
+                    <svg-icon icon-class="pause"></svg-icon>
                     <span>{{menuObj.menuLabel}}</span>
                 </template>
                 <side-bar-item v-for="item of menuObj.children"
@@ -12,14 +13,14 @@
             </el-submenu>
         </template>
         <template v-else>
-            <router-link :to="menuObj.menuUrl" tag="div">
+<!--            <router-link :to="menuObj.menuUrl" tag="div">-->
                 <el-menu-item :index="menuObj.menuUrl">
                     <i :class="menuObj.menuIcon"></i>
                     <span>{{menuObj.menuLabel}}</span>
                 </el-menu-item>
-            </router-link>
+<!--            </router-link>-->
         </template>
-    </div>
+    </fragment>
 </template>
 
 <script>

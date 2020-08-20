@@ -1,9 +1,9 @@
 <template>
     <div class="layout-container">
         <el-container style="height: 100%;">
-            <el-aside width="240px">
+            <el-aside width="auto">
                 <div class="logo-container"></div>
-                <side-bar :menu-list="menus" :is-collapse="isCollapsed"></side-bar>
+                <side-bar :menu-list="menus" :is-collapsed="isCollapsed"></side-bar>
             </el-aside>
             <el-container>
                 <el-header>
@@ -32,14 +32,14 @@
                 isCollapsed: false,
                 menus: [
                     {
-                        id: 1,
+                        id: '1',
                         visibility: true,
                         menuIcon: 'el-icon-location',
                         menuUrl: '/index/1',
                         menuLabel: '菜单一',
                         children: [
                             {
-                                id: 11,
+                                id: '11',
                                 visibility: true,
                                 menuIcon: 'el-icon-location',
                                 menuUrl: '/index/11',
@@ -51,7 +51,7 @@
                         ]
                     },
                     {
-                        id: 2,
+                        id: '2',
                         visibility: true,
                         menuIcon: 'el-icon-location',
                         menuUrl: '/index/2',
@@ -59,7 +59,7 @@
                         children: []
                     },
                     {
-                        id: 3,
+                        id: '3',
                         visibility: true,
                         menuIcon: 'el-icon-location',
                         menuUrl: '/index/3',
