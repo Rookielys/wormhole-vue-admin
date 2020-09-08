@@ -6,16 +6,22 @@
             </div>
             <div class="input-item">
                 <el-input v-model="loginParam.username" placeholder="请输入用户名"
-                          clearable size="large" prefix-icon="el-icon-user"/>
+                          clearable size="large">
+                    <svg-icon icon-class="user" slot="prefix"></svg-icon>
+                </el-input>
             </div>
             <div class="input-item">
                 <el-input v-model="loginParam.pwd" placeholder="请输入密码" type="password"
-                          clearable size="large" password prefix-icon="el-icon-lock"/>
+                          clearable size="large" password>
+                    <svg-icon icon-class="lock" slot="prefix"></svg-icon>
+                </el-input>
             </div>
             <div class="input-item">
                 <div class="verify-input">
                     <el-input v-model="loginParam.verifyCode" clearable placeholder="验证码"
-                              prefix-icon="el-icon-key" size="large" @keyup.native.enter="clickLoginBtn"/>
+                              size="large" @keyup.native.enter="clickLoginBtn">
+                        <svg-icon icon-class="safety-certificate" slot="prefix"></svg-icon>
+                    </el-input>
                 </div>
                 <div class="verify-img">
                     <img :src="verificationCode" alt="加载失败"
@@ -169,6 +175,11 @@
 
             .input-item {
                 margin-bottom: 25px;
+
+                /deep/ .el-input__prefix {
+                    display: flex;
+                    align-items: center;
+                }
 
                 .verify-input {
                     width: 200px;

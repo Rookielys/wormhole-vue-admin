@@ -23,7 +23,7 @@ const store = new Vuex.Store({
     modules,
     plugins: [createPersistedState({
         storage: window.sessionStorage,
-        paths: ['authc']
+        paths: ['authc.token']
     })]
 });
 // console.log(store)

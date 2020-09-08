@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import loginRoutes from "@/routes/modules/login.js"
 import notFoundRoutes from "@/routes/modules/404.js"
+import store from "@/stores/index.js"
 
 Vue.use(VueRouter);
 NProgress.configure({easing: 'ease', speed: 500, showSpinner: false})
@@ -32,6 +33,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start();
+    // 每次页面跳转时都拉取最新的用户数据
+    if (store) {
+
+    }
     next();
 });
 

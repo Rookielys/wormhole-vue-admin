@@ -2,7 +2,8 @@ export const SET_TOKEN = "SET_TOKEN";
 export default {
     namespaced: true,
     state: () => ({
-        token: null
+        token: null,
+
     }),
     mutations: {
         [SET_TOKEN] (state, token) {
